@@ -1,106 +1,314 @@
-Armemos receptores GNSS
+Armemos receptores GNSS en el IGU
 ================
 José Ramón Martínez Batlle jmartinez19@uasd.edu.do
 
 ## Código QR de este repo
 
-<img src="img/qr.jpg" style="width:50.0%" />
+![](qr.jpg)
 
-## Lista completa de materiales
+# Descripción general del curso
 
-Creé este repo para alojar la lista de materiales (BOM) requeridos para
-armar receptores GNSS. El repo es igualmente un apoyo para talleres de
-formación basados en aprendizaje práctico (manos a la obra, *hands-on*),
-donde los y las participantes se dividirían en grupos idealmente de 3
-personas para armar una base permanente de interiores, que a la vez sea
-actualizable y expandible, y pensada para posibles adaptaciones de
-movilidad futuras.
+Curso práctico de 20 horas (5 días, 4 horas por día) orientado al
+**diseño, ensamblaje, configuración y prueba de receptores GNSS de bajo
+costo**, con enfoque modular y expandible.
 
-Esta alternativa es viable porque es relativamente fácil comenzar con un
-proyecto que no requiera estrictamente la impermeabilización, pero
-considerándola en primera instancia en el contexto del diseño expandible
-para lograr una eventual necesidad portabilidad. El diseño para
-interiores facilita muchas cosas en un taller de formación, pues lograr
-la estanqueidad de una caja o implementar un circuito de alimentación
-ininterrumpida, por ejemplo, suele ser desafiante.
+El curso está diseñado bajo metodología *hands-on*, donde cada grupo
+(idealmente de 3 participantes) ensamblará un equipo funcional modelo,
+que podría ser cualquiera de los siguientes tipos:
 
-La lista de partes sería básica (la imagen adjunta es un buen
-complemento visual):
+- Base fija interior
+- Base móvil
+- Rover
 
-- Módulo principal: placa con módulo receptor GNSS (estoy inclinado a
-  Unicore o Quectel, pero hay muchos otros a buen precio, como Bynav y
-  ComNav).
+La teoría se concentra en una sesión inicial breve para comprender los
+fundamentos científicos y técnicos que justifican el diseño.
 
-- Módulo de control o computación, “cerebro”: Raspberry Zero W. Esto se
-  podría sustituir por un microcontrolador, pero nos obligaría a hacer
-  más cosas en la parte de programación. En el caso de una base para
-  interiores, también se podría utilizar una PC, pero sería una solución
-  energéticamente ineficiente.
+------------------------------------------------------------------------
 
-- Alimentación de energía:
+# Objetivos del curso
 
-  - Circuito de carga de batería. Aunque estoy sugiriendo armar base
-    fija para interiores, si le creamos un circuito de carga de batería,
-    la base no será vulnerable a fluctuaciones de voltaje o cortes de
-    luz, y podremos sacarla al campo con más facilidad (instalé una en
-    el FC-203 que funciona 24/7, y la saco al campo regularmente).
-  - Regulador, tanto step-up (elevador de voltaje) como step-down
-    (reductor de voltaje).
-  - Baterías, normalmente, uso la 18650, de ión de litio, 3.7V. Las
-    venden en la 30 de Marzo. En este caso, con tres sería suficiente.
+Al finalizar el curso, el/la participante será capaz de:
 
-- Caja protectora. Uso cajas de registro eléctrico, cuyas dimensiones
-  suelen ser variables, pero normalmente uso las de 130x80x70 mm. Pero
-  cualquier envase de plástico para comida, que resista algo de
-  temperatura y sea impermeable, servirá.
+- Comprender los fundamentos físicos y matemáticos del posicionamiento
+  satelital.
+- Diferenciar entre GPS, GLONASS, Galileo, BeiDou y otros sistemas GNSS.
+- Identificar los componentes esenciales de un receptor GNSS.
+- Ensamblar correctamente un receptor GNSS modular.
+- Implementar sistema de alimentación autónoma.
+- Configurar el software base (RTKLIB / RTKBase / BashRTKStation).
+- Realizar pruebas de funcionamiento y transmisión NTRIP.
 
-- Antena GNSS, preferiblemente de plato.
+------------------------------------------------------------------------
 
-- Cables, conectores JST: esto puede variar de un proyecto a otro, pero
-  sí son imprescindibles el cable de la antena a la caja del receptor
-  normalmente de 3 metros (LMR195 o RG174 con terminal TNC en una punta
-  y SMA macho en la otra), un pequeño cable dentro de la caja, de 5 a 8
-  cm de longitud, con terminales SMA hembra en un lado y en la otra
-  punta el terminal que use el receptor, normalmente MMCX o SMA (este
-  pequeño cable dirige la señal desde la parte de afuera de la caja
-  hacia la tarjeta del módulo GNSS), y cables de energía (20 AWG) cortos
-  que van dentro de la caja. Los conectores JST son cómodos para armar y
-  desarmar el equipo cuando haya que dar servicio.
+# Estructura del curso
 
-- Soportes y tornillería para estabilizar el proyecto dentro de la caja.
+## Día 1 – Fundamentos y arquitectura del sistema (4 horas)
 
-- Terminal USB e interruptor (el interruptor también podría ser touch,
-  capacitivo).
+### Hora 1 – Teoría mínima indispensable
 
-- Montaje tipo V (macho y hembra).
+#### 1. ¿Qué es un sistema de posicionamiento?
 
-- Tornillos varios, M\*.
+- Trilateración
+- Tiempo de viaje de la señal
+- Sincronización reloj satélite-receptor
+- Concepto de error
 
-- Herramientas útiles pero no imprescindibles, porque yo las puedo
-  aportar: crimpadora de cables para armar conectores JST, crimpadora
-  para cables coaxiales y conectores, soldador, estaño, flux, pinzas de
-  corte, y otras herramientas.
+#### 2. Ciencia que lo explica
 
-## Componentes del receptor GNSS mostrado en la demo
+- Geodesia
+- Sistemas de referencia (ITRF vs WGS84)
+- Correcciones diferenciales
+- RTK y PPK
 
-| Ítem                                                                            | Precio (US\$) |
-|:--------------------------------------------------------------------------------|--------------:|
-| Tres Baterías 18650, mejor para 10 Ah                                           |            15 |
-| Tres protectores de batería o PCM (sobredescarga, sobretensión y cortocircuito) |             3 |
-| Sistema de gestión de bateria (BMS) de DIY More MCP73871                        |             3 |
-| Step-up / step-down TPS63070                                                    |             1 |
-| Raspberry Pi Zero W                                                             |            15 |
-| Receptor (Unicore UM980)                                                        |          80\* |
-| Coaxial corto MMCX (macho) - SMA (hembra)                                       |             2 |
-| Antena de plato                                                                 |            55 |
-| Interruptor (e.g., touch TTP223)                                                |             1 |
-| Disipadores                                                                     |             5 |
-| Caja (registro eléctrico, de comida)                                            |             5 |
-| Gastable, accesorios varios, tornillería, cables, conectores                    |            10 |
-| **Total**                                                                       |       **195** |
+#### 3. Sistemas GNSS
 
-<sup>\*</sup><small>Pagué ese precio, pero ahora está más caro. Hacen
-ofertas regularmente.</small>
+- GPS (EE.UU.)
+- GLONASS (Rusia)
+- Galileo (UE)
+- BeiDou (China)
+
+#### 4. Aplicaciones
+
+- Topografía
+- Monitoreo estructural
+- Geodinámica
+- Agricultura de precisión
+- Estaciones permanentes
+- Otras
+
+------------------------------------------------------------------------
+
+### Horas 2–4 – Introducción al proyecto práctico
+
+- Presentación de componentes físicos
+- Arquitectura general del sistema
+- Esquema modular:
+
+<!-- -->
+
+    Antena → Receptor GNSS → Unidad de cómputo → Red / almacenamiento
+                      ↑
+                  Sistema de energía
+
+- Organización de grupos
+- Asignación de kits
+
+------------------------------------------------------------------------
+
+## Día 2 – Ensamblaje del sistema electrónico
+
+### Objetivo del día
+
+Lograr el ensamblaje funcional del núcleo:
+
+- Receptor
+- Raspberry / SBC
+- Sistema de alimentación
+
+### Actividades
+
+1.  Identificación de pines y conectores
+2.  Soldadura de cables
+3.  Crimpado de conectores JST
+4.  Instalación del BMS
+5.  Integración batería + step-up/down
+6.  Prueba de voltajes con multímetro
+7.  Encendido inicial seguro
+
+------------------------------------------------------------------------
+
+## Día 3 – Integración física y montaje en caja
+
+### Objetivo del día
+
+Construir sistema estable, ventilado y seguro.
+
+### Actividades
+
+- Perforación de caja
+- Montaje de interruptor
+- Instalación de conector SMA externo
+- Fijación de módulos internos
+- Disipación térmica
+- Organización de cableado
+- Prueba estructural
+
+Discusión breve:
+
+- Disipación pasiva
+- Estanqueidad
+- Consideraciones IP
+
+------------------------------------------------------------------------
+
+## Día 4 – Configuración de software y transmisión
+
+### Objetivo del día
+
+Lograr que el sistema:
+
+- Lea observaciones GNSS
+- Genere RINEX
+- Transmita vía NTRIP
+
+### Actividades
+
+1.  Instalación de sistema operativo (si aplica)
+2.  Configuración de RTKBase o RTKLIB
+3.  Configuración de puerto serial
+4.  Prueba de recepción satelital
+5.  Visualización de constelaciones
+6.  Registro de datos
+7.  Envío a caster (rtk2go u otro)
+
+Opcional avanzado: - Configuración de caster propio
+
+------------------------------------------------------------------------
+
+## Día 5 – Validación, pruebas de campo y expansión
+
+### Objetivo del día
+
+Validar precisión y explorar mejoras.
+
+### Actividades
+
+- Prueba estática comparativa
+- Evaluación de coordenadas
+- Discusión sobre:
+  - Errores
+  - Multipath
+  - Geometría satelital
+- Introducción a:
+  - RTK
+  - PPK
+  - Redes de estaciones
+
+### Cierre
+
+Cada grupo presenta:
+
+- Su diseño
+- Problemas encontrados
+- Mejoras futuras
+
+------------------------------------------------------------------------
+
+# Lista de materiales (“*bill of materials*”, BOM)
+
+El BOM relaciona los componentes de un único kit. Cada kit se ha
+concebido para ser económico, modular y replicable, con componentes
+accesibles en plataformas internacionales, como AliExpress. Localmente
+se podrían adquirir algunos componentes, pero la oferta es muy limitada.
+
+Se intenta que en el curso haya al menos dos kits disponibles para que
+los participantes puedan armar receptores GNSS completamente
+funcionales. Si los y las participantes adquiriesen sus propios kits,
+podrían llevarlos al curso para ensamblarlos y configurarlos. Los
+precios indicados a continuación son sólo para referencia, porque
+últimamente se ha evidenciado mucha la volatilidad en la disponibilidad
+y costes de los componentes electrónicos.
+
+## Núcleo GNSS
+
+| Ítem                         | Precio (US\$) |
+|:-----------------------------|--------------:|
+| Raspberry Pi Zero W          |            15 |
+| Receptor GNSS (UM980 u otro) |           120 |
+| Antena GNSS tipo plato       |            55 |
+| Cable coaxial corto MMCX–SMA |             2 |
+
+------------------------------------------------------------------------
+
+## Sistema de energía
+
+| Ítem                         | Precio (US\$) |
+|:-----------------------------|--------------:|
+| Tres baterías 18650          |            15 |
+| PCM protección batería       |             3 |
+| BMS MCP73871                 |             3 |
+| Step-up / step-down TPS63070 |             1 |
+
+------------------------------------------------------------------------
+
+## Integración
+
+| Ítem                 | Precio (US\$) |
+|:---------------------|--------------:|
+| Interruptor          |             1 |
+| Disipadores          |             5 |
+| Caja                 |             5 |
+| Tornillería y cables |            10 |
+
+### 💰 **Total aproximado para un kit: 235 US\$ + 10% incertidumbre = 258.5 US\$**
+
+------------------------------------------------------------------------
+
+# Diseños posibles
+
+## Base fija interior
+
+- Receptor GNSS USB
+- SBC o PC
+- Antena de plato
+- Alimentación estable
+
+------------------------------------------------------------------------
+
+## Base móvil
+
+- Igual que base fija
+- Caja IP
+- Batería integrada
+- Disipación reforzada
+
+------------------------------------------------------------------------
+
+## Rover
+
+- Antena helix o plato
+- SBC o microcontrolador
+- Software BashRTKStation
+- Transmisión NTRIP
+
+------------------------------------------------------------------------
+
+# Repositorios y recursos
+
+- RTKLIB
+- RTKBase
+- BashRTKStation
+- rtk2go.com
+- Onocoy
+- Geodnet
+
+------------------------------------------------------------------------
+
+# Metodología
+
+Este curso sigue enfoque:
+
+- Aprendizaje basado en problemas
+- Construcción modular
+- Diagnóstico técnico
+- Autonomía técnica
+
+------------------------------------------------------------------------
+
+# Resultados esperados
+
+Al finalizar el curso, cada grupo habrá construido un receptor GNSS
+completamente funcional, expandible y replicable, listo para
+aplicaciones reales en:
+
+- Monitoreo continuo
+- Levantamientos RTK
+- Instalación de estaciones base
+- Investigación geodésica
+
+------------------------------------------------------------------------
+
+# Figuras de apoyo
 
 ![](img/0_0_0_partes-general.jpg) ![](img/0_0_esquematico.png)
 ![](img/00_18650.jpg) ![](img/01_pcm-proteccion-bateria.jpg)
@@ -129,110 +337,3 @@ ofertas regularmente.</small>
 ## Ver también
 
 <https://geofis.github.io/mdt-campus-uasd-gnss-bajo-costo/presentaciones/III-Congreso-IDI-XXIII-JIC-nov24.html>
-
-## Diseños posibles y lista de componentes
-
-> Ver ejemplos de componentes arriba.
-
-> En todos los casos de asume que existe conectividad a Internet; si se
-> requiriese transmisión/recepción por radio, a cada diseño habría que
-> añadir un transmisor (base) o receptor (rover).
-
-> En todos los casos, sobre todo en los equipos para el exterior, se
-> necesitarán conectores, conductores (normales, tipo mm o AWG, y
-> coaxiales), terminales (e.g. JST, SMA, u.Fl, MMCX, etc.), los cuales
-> deberán considerarse en la lista de materiales.
-
-### Base fija de interiores
-
-- Receptor GNSS con puerto USB.
-
-  - Alternativamente, si el receptor solo tiene terminal UART, se
-    requiere adaptador UART-USB, e.g. FTDI, pero esto no es requerido si
-    se usa microcontrolador en el lado computación.
-  - Ver marcas de receptores arriba, pero los precios más competitivos
-    los ofrecen Quectel, Unicore Communications y u-blox. En AliExpress,
-    ocasionalmente hay ofertas de receptores SINOGNSS. Es importante que
-    hagas tu propia búsqueda para que elijas lo que mejor se adapte a
-    tus necesidades. Los criterios comúnmente son: consumo, número de
-    frecuencias, eficiencia de disipación, tamaño.
-
-- Unidad control o computador. Cualquiera de las siguientes opciones es
-  válida, cada una con sus pros y sus contras:
-
-  - PC Windows o Linux (GUI).
-  - Raspberry Pi u otra marca de SBC (Linux, consola). En interiores no
-    hay restricciones energéticas, así que puedes usar una Raspberry Pi
-    4 o 3B+. Si necesitaras que el consumo fuese bajo, entonces
-    Raspberry Pi Zero W.
-  - Microcontrolador (e.g. ESP32).
-
-- Cable USB. En interiores, cualquier cable USB común es válido (casi
-  todos los receptores modernos usan USB-A en el extremo de la PC y
-  Tipo-C en el extremo del receptor).
-
-- (opcional) Si se requiere almacenamiento para posproceso, necesitarás
-  un disco con suficiente espacio (mejor uno dedicado).
-
-- Software: RTKBase, o directamente RTKLIB, o bibliotecas C++
-  (e.g. bibliotecas GNSS de Sparkfun) si se usa microcontrolador
-
-- Cuenta en rtk2go.com u Onocoy o Geodnet o crear un caster directamente
-  (esto último obliga a exponer la IP pública, por lo que se recomienda
-  usar un cliente VPN).
-
-- Antena GNSS capaz de recibir las frecuencias que el receptor pueda
-  procesar. La antena de plato es la mejor opción.
-
-### Base móvil/exteriores
-
-Misma lista que la anterior, con las siguientes particularidades:
-
-- La unidad de control o cómputo sólo podría ser SBC o microcontrolador.
-
-- Protección que sea resistente al polvo y al agua (estanqueidad
-  garantizada, grado IP o *ingress protection*). Una caja de registro
-  eléctrico, o similar, podría hacer el trabajo. Las cajas metálicas,
-  aunque son más pesadas, disipan mejor el calor, lo cual es importante
-  para el receptor y la unidad de control. Colocar un disipador de calor
-  pasivo, tanto sobre el módulo del receptor, como sobre la CPU de la
-  SBC o microcontrolador, es altamente recomendado.
-
-- Añadir sistema de alimentación, que incluye:
-
-  - Bateria(s) 3.7v (e.g. 18650)
-  - Protection Circuit Module (PCM),
-  - Battery Management System (BMS)
-  - Step-up/step-down
-
-### Rover (lógicamente, para exteriores) con alimentación propia
-
-Casi los mismos componentes que la base móvil, pero con las
-particularidades siguientes:
-
-- En el caso de que el receptor tenga buen filtro, una antena de tipo
-  *helix* puede funcionar.
-
-- Software.
-
-  - En el caso de usar SBC las opciones son limitadas, pero estoy usando
-    [BashRTKStation](https://github.com/geofis/BashRTKStation/).
-  - En el caso de usar microcontroldor, las bibliotecas GNSS de Sparkfun
-    son las más recomendadas.
-
-### Rover “híbrido”, con alimentación externa.
-
-Se podría considerar un rover híbrido, similar al anterior, en el que
-todo el módulo de alimentación externa podría sustituirse por un
-powerbank.
-
-## Proveedores sugeridos
-
-- AliExpress
-- Sparkfun
-- DigiKey
-- Mouser
-- Adafruit
-- ArduSimple
-- Amazon
-- eBay.
