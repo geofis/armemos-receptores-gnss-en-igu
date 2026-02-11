@@ -2,8 +2,8 @@
 title: "Armemos receptores GNSS en el IGU"
 author: José Ramón Martínez Batlle jmartinez19\@uasd.edu.do
 output:
-  # github_document
-  bookdown::pdf_document2
+  github_document
+  # bookdown::pdf_document2
 ---
 
 ```{r setup, include=FALSE}

@@ -240,7 +240,7 @@ y costes de los componentes electrónicos.
 | Caja                 |             5 |
 | Tornillería y cables |            10 |
 
-### 💰 **Total aproximado para un kit: 235 US\$ + 10% incertidumbre = 258.5 US\$**
+### **Total aproximado para un kit: 235 US\$ + 10% incertidumbre = 258.5 US\$**
 
 ------------------------------------------------------------------------
 
@@ -310,29 +310,69 @@ aplicaciones reales en:
 
 # Figuras de apoyo
 
-![](img/0_0_0_partes-general.jpg) ![](img/0_0_esquematico.png)
-![](img/00_18650.jpg) ![](img/01_pcm-proteccion-bateria.jpg)
-![](img/02_bms-diy-more-mcp7871.jpg) ![](img/03_TPS63070.jpg)
-![](img/04_rpi-zero-w.jpg) ![](img/05_um980.jpg)
-![](img/06_mmcx-sma.jpg) ![](img/07_antena-de-plato.jpg)
-![](img/08_ttp-223.jpg) ![](img/09_disipadores.jpg) ![](img/10_caja.jpg)
+![](img/0_0_0_partes-general.jpg)
+
+![](img/0_0_esquematico.png)
+
+![](img/00_18650.jpg)
+
+![](img/01_pcm-proteccion-bateria.jpg)
+
+![](img/02_bms-diy-more-mcp7871.jpg)
+
+![](img/03_TPS63070.jpg)
+
+![](img/04_rpi-zero-w.jpg)
+
+![](img/05_um980.jpg)
+
+![](img/06_mmcx-sma.jpg)
+
+![](img/07_antena-de-plato.jpg)
+
+![](img/08_ttp-223.jpg)
+
+![](img/09_disipadores.jpg)
+
+![](img/10_caja.jpg)
+
 ![](img/aplic_00_gnss-deslizamientos.png)
+
 ![](img/aplic_01_hormigueros_0_IMG_20250325_164028.jpg)
+
 ![](img/aplic_01_hormigueros_mapa.png)
+
 ![](img/aplic_02_jardin-botanico-santiago.png)
-![](img/aplic_03_puntos_uasd.jpg) ![](img/aplic_04_mdt_uasd.jpg)
+
+![](img/aplic_03_puntos_uasd.jpg)
+
+![](img/aplic_04_mdt_uasd.jpg)
+
 ![](img/aplic_05_repceptoresIMG_20241109_224524.jpg)
+
 ![](img/aplic_06_antenas_carro_IMG_20241110_114536.jpg)
+
 ![](img/aplic_07_antena_base_fc_IMG_20241116_140933.jpg)
+
 ![](img/aplic_08_receptor_base_arriba_IMG_20250126_211012.jpg)
+
 ![](img/aplic_09_receptor_base_abajo_IMG_20250126_211229.jpg)
+
 ![](img/aplic_10_mana_IMG_20231208_100215.jpg)
+
 ![](img/aplic_11_mana_IMG_20231208_121223.jpg)
+
 ![](img/aplic_12_hato_mayor_IMG_20241012_133700.jpg)
+
 ![](img/aplic_12_hato_mayor_Screenshot_2024-10-12-11-47-08-436.jpg)
+
 ![](img/aplic_13_playa_IMG_20241201_121708.jpg)
+
 ![](img/aplic_14_playa_IMG_20241201_121711.jpg)
+
 ![](img/aplic_15_mesa_IMG_20250409_145023.jpg)
+
+<!-- Ejecutar este comando después de generar el PDF -->
 
 ## Ver también
 
