@@ -1,0 +1,13 @@
+Categoria,Item,Precio_USD
+Núcleo GNSS,Raspberry Pi Zero W,35
+Núcleo GNSS,Receptor GNSS (UM980 u otro),120
+Núcleo GNSS,Antena GNSS tipo plato,55
+Núcleo GNSS,Cable coaxial corto MMCX–SMA,2
+Sistema de energía,Tres baterías 18650,15
+Sistema de energía,PCM protección batería,3
+Sistema de energía,BMS MCP73871,3
+Sistema de energía,Step-up / step-down TPS63070,1
+Integración,Interruptor,1
+Integración,Disipadores,5
+Integración,Caja,5
+Integración,Tornillería y cables,10

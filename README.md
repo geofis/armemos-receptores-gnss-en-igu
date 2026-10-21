@@ -138,6 +138,8 @@ Discusión breve:
 - Disipación pasiva
 - Estanqueidad
 - Consideraciones IP
+- Soporte de antena. Es importante dedicar un espacio para discutir
+  el/los soporte/s de antena/s.
 
 ------------------------------------------------------------------------
 
@@ -196,7 +198,7 @@ Cada grupo presenta:
 
 # Lista de materiales (“*bill of materials*”, BOM)
 
-El BOM relaciona los componentes de un único kit. Cada kit se ha
+El BOM relaciona los componentes de un **único kit**. Cada kit se ha
 concebido para ser económico, modular y replicable, con componentes
 accesibles en plataformas internacionales, como AliExpress. Localmente
 se podrían adquirir algunos componentes, pero la oferta es muy limitada.
@@ -205,42 +207,49 @@ Se intenta que en el curso haya al menos dos kits disponibles para que
 los participantes puedan armar receptores GNSS completamente
 funcionales. Si los y las participantes adquiriesen sus propios kits,
 podrían llevarlos al curso para ensamblarlos y configurarlos. Los
-precios indicados a continuación son sólo para referencia, porque
-últimamente se ha evidenciado mucha la volatilidad en la disponibilidad
-y costes de los componentes electrónicos.
+precios indicados a continuación son para un único kit y sólo para
+referencia, porque últimamente se ha evidenciado mucha la volatilidad en
+la disponibilidad y costes de los componentes electrónicos.
 
-## Núcleo GNSS
+| Categoría              | Ítem                         | Precio (US\$) |
+|:-----------------------|:-----------------------------|:--------------|
+| Integración            | Interruptor                  | 1.00          |
+| Integración            | Disipadores                  | 5.00          |
+| Integración            | Caja                         | 5.00          |
+| Integración            | Tornillería y cables         | 10.00         |
+| **Integración**        | **Subtotal**                 | **21.00**     |
+| Núcleo GNSS            | Raspberry Pi Zero W          | 35.00         |
+| Núcleo GNSS            | Receptor GNSS (UM980 u otro) | 120.00        |
+| Núcleo GNSS            | Antena GNSS tipo plato       | 55.00         |
+| Núcleo GNSS            | Cable coaxial corto MMCX–SMA | 2.00          |
+| **Núcleo GNSS**        | **Subtotal**                 | **212.00**    |
+| Sistema de energía     | Tres baterías 18650          | 15.00         |
+| Sistema de energía     | PCM protección batería       | 3.00          |
+| Sistema de energía     | BMS MCP73871                 | 3.00          |
+| Sistema de energía     | Step-up / step-down TPS63070 | 1.00          |
+| **Sistema de energía** | **Subtotal**                 | **22.00**     |
+| **TOTAL**              | **Total general**            | **255.00**    |
 
-| Ítem                         | Precio (US\$) |
-|:-----------------------------|--------------:|
-| Raspberry Pi Zero W          |            15 |
-| Receptor GNSS (UM980 u otro) |           120 |
-| Antena GNSS tipo plato       |            55 |
-| Cable coaxial corto MMCX–SMA |             2 |
+Presupuesto estimado del sistema GNSS, válido para un kit
 
-------------------------------------------------------------------------
+### **Total aproximado para un kit: 255 US\$ + 10% = 280.5 US\$**.
 
-## Sistema de energía
+**Aclaración 1**. El presupuesto anterior es válido para un único kit
+GNSS. Si se tratase de dos o más kits, habría que multiplicar esta
+cantidad por el número de kits deseados.
 
-| Ítem                         | Precio (US\$) |
-|:-----------------------------|--------------:|
-| Tres baterías 18650          |            15 |
-| PCM protección batería       |             3 |
-| BMS MCP73871                 |             3 |
-| Step-up / step-down TPS63070 |             1 |
-
-------------------------------------------------------------------------
-
-## Integración
-
-| Ítem                 | Precio (US\$) |
-|:---------------------|--------------:|
-| Interruptor          |             1 |
-| Disipadores          |             5 |
-| Caja                 |             5 |
-| Tornillería y cables |            10 |
-
-### **Total aproximado para un kit: 235 US\$ + 10% incertidumbre = 258.5 US\$**
+**Aclaración 2**. Dado que se desconocen las condiciones finales en las
+que se usará el o los dispositivos, no se han presupuestado gastos de
+soporte/transporte de la antena. En el caso de la base, el soporte
+podria ser una base metálica o una pilastra de mampostería, pero
+dependerá mucho de las condiciones y del lugar donde se instale
+finalmente la antena; en techos, suele ser un soporte de metal, y en
+suelo, una pilastra de mampostería. Tampoco se ha incluido el cable
+coaxial que conectaría la antena y el receptor. Igualmente, no se
+incluye el equipamiento de transporte/fijación de la antena del rover,
+como podría ser un jalón, un trípode estándar de plato, o trípode/bípode
+de liberación por pulgar, debido a que dichos materiales podrían ya
+estar disponibles en la institución.
 
 ------------------------------------------------------------------------
 

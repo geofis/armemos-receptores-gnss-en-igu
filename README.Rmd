@@ -10,7 +10,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Código QR de este repo
+## Código QR de este repo {.unnumbered}
 
 ```{r, warning=F, message=F, echo=F}
 library(qrcode)
@@ -149,6 +149,7 @@ Discusión breve:
 - Disipación pasiva
 - Estanqueidad
 - Consideraciones IP
+- Soporte de antena. Es importante dedicar un espacio para discutir el/los soporte/s de antena/s.
 
 ---
 
@@ -208,42 +209,98 @@ Cada grupo presenta:
 
 # Lista de materiales ("*bill of materials*", BOM)
 
-El BOM relaciona los componentes de un único kit. Cada kit se ha concebido para ser económico, modular y replicable, con componentes accesibles en plataformas internacionales, como AliExpress. Localmente se podrían adquirir algunos componentes, pero la oferta es muy limitada.
+El BOM relaciona los componentes de un **único kit**. Cada kit se ha concebido para ser económico, modular y replicable, con componentes accesibles en plataformas internacionales, como AliExpress. Localmente se podrían adquirir algunos componentes, pero la oferta es muy limitada.
 
-Se intenta que en el curso haya al menos dos kits disponibles para que los participantes puedan armar receptores GNSS completamente funcionales. Si los y las participantes adquiriesen sus propios kits, podrían llevarlos al curso para ensamblarlos y configurarlos. Los precios indicados a continuación son sólo para referencia, porque últimamente se ha evidenciado mucha la volatilidad en la disponibilidad y costes de los componentes electrónicos.
+Se intenta que en el curso haya al menos dos kits disponibles para que los participantes puedan armar receptores GNSS completamente funcionales. Si los y las participantes adquiriesen sus propios kits, podrían llevarlos al curso para ensamblarlos y configurarlos. Los precios indicados a continuación son para un único kit y sólo para referencia, porque últimamente se ha evidenciado mucha la volatilidad en la disponibilidad y costes de los componentes electrónicos.
 
-## Núcleo GNSS
 
-| Ítem | Precio (US$) |
-|:--|--:|
-| Raspberry Pi Zero W | 15 |
-| Receptor GNSS (UM980 u otro) | 120 |
-| Antena GNSS tipo plato | 55 |
-| Cable coaxial corto MMCX–SMA | 2 |
+```{r tabla-presupuesto, echo=FALSE, results='asis', warning=F, message=F}
+library(readr)
+library(dplyr)
+library(knitr)
+library(kableExtra)
 
----
+presupuesto <- read_csv(
+  "presupuesto_gnss.csv",
+  show_col_types = FALSE
+)
 
-## Sistema de energía
+tabla <- presupuesto %>%
+  group_by(Categoria) %>%
+  summarise(
+    datos = list(
+      tibble(
+        Item = c(Item, "Subtotal"),
+        Precio_USD = c(Precio_USD, sum(Precio_USD))
+      )
+    ),
+    .groups = "drop"
+  ) %>%
+  tidyr::unnest(datos) %>%
+  bind_rows(
+    tibble(
+      Categoria = "TOTAL",
+      Item = "Total general",
+      Precio_USD = sum(presupuesto$Precio_USD)
+    )
+  )
+total <- tabla[tabla$Categoria=='TOTAL','Precio_USD', drop=T]
+incertidumbre <- 0.1
+total_incertidumbre <- total + total*incertidumbre
 
-| Ítem | Precio (US$) |
-|:--|--:|
-| Tres baterías 18650 | 15 |
-| PCM protección batería | 3 |
-| BMS MCP73871 | 3 |
-| Step-up / step-down TPS63070 | 1 |
+formato <- knitr::pandoc_to()
 
----
+if (formato %in% c("latex", "html")) {
 
-## Integración
+  kable(
+    tabla,
+    booktabs = TRUE,
+    longtable = formato == "latex",
+    col.names = c("Categoría", "Ítem", "Precio (US$)"),
+    digits = 2,
+    caption = "Presupuesto estimado del sistema GNSS"
+  ) %>%
+    kable_styling(
+      latex_options = if (formato == "latex")
+        c("repeat_header", "hold_position") else NULL,
+      font_size = 9
+    ) %>%
+    row_spec(
+      which(tabla$Item %in% c("Subtotal", "Total general")),
+      bold = TRUE
+    )
 
-| Ítem | Precio (US$) |
-|:--|--:|
-| Interruptor | 1 |
-| Disipadores | 5 |
-| Caja | 5 |
-| Tornillería y cables | 10 |
+} else {
 
-### **Total aproximado para un kit: 235 US$ + 10% incertidumbre = 258.5 US$**
+  tabla_md <- tabla %>%
+    mutate(
+      Precio_USD = sprintf("%.2f", Precio_USD)
+    )
+
+  filas_negrita <- tabla_md$Item %in%
+    c("Subtotal", "Total general")
+
+  # Aplicar negritas a todas las columnas
+  tabla_md[filas_negrita, ] <- lapply(
+    tabla_md[filas_negrita, ],
+    function(x) paste0("**", x, "**")
+  )
+
+  knitr::kable(
+    tabla_md,
+    format = "pipe",
+    col.names = c("Categoría", "Ítem", "Precio (US$)"),
+    caption = "Presupuesto estimado del sistema GNSS, válido para un kit",
+    escape = FALSE
+  )
+}
+```
+
+### **Total aproximado para un kit: `r total` US$ + `r incertidumbre * 100`% = `r total_incertidumbre` US$**.
+
+**Aclaración 1**. El presupuesto anterior es válido para un único kit GNSS. Si se tratase de dos o más kits, habría que multiplicar esta cantidad por el número de kits deseados.
+
+**Aclaración 2**. Dado que se desconocen las condiciones finales en las que se usará el o los dispositivos, no se han presupuestado gastos de soporte/transporte de la antena. En el caso de la base, el soporte podria ser una base metálica o una pilastra de mampostería, pero dependerá mucho de las condiciones y del lugar donde se instale finalmente la antena; en techos, suele ser un soporte de metal, y en suelo, una pilastra de mampostería. Tampoco se ha incluido el cable coaxial que conectaría la antena y el receptor. Igualmente, no se incluye el equipamiento de transporte/fijación de la antena del rover, como podría ser un jalón, un trípode estándar de plato, o trípode/bípode de liberación por pulgar, debido a que dichos materiales podrían ya estar disponibles en la institución.
 
 ---
 
@@ -311,12 +368,86 @@ Al finalizar el curso, cada grupo habrá construido un receptor GNSS completamen
 
 # Figuras de apoyo
 
-```{r, results='asis', echo=F}
+```{r, results='asis', echo=F, eval=F}
 imgs <- grep(
   pattern = 'qr.jpg',
   x = list.files('img', pattern = 'jpg|png', full.names = T),
   invert = T, value = T)
 for(i in imgs) {cat('![](', i, ')\n\n', sep = '')}
+```
+
+```{r imagenes, results='asis', echo=FALSE, message=FALSE, warning=FALSE}
+library(magick)
+library(knitr)
+
+imgs <- grep(
+  pattern = "qr.jpg",
+  x = list.files(
+    "img",
+    pattern = "\\.(jpg|jpeg|png)$",
+    full.names = TRUE,
+    ignore.case = TRUE
+  ),
+  invert = TRUE,
+  value = TRUE
+)
+
+formato <- knitr::pandoc_to()
+
+if (formato == "latex") {
+
+  # Directorio temporal dentro del proyecto
+  dir.create("img_reducidas", showWarnings = FALSE)
+
+  for (i in imgs) {
+
+    destino <- file.path(
+      "img_reducidas",
+      paste0(
+        tools::file_path_sans_ext(basename(i)),
+        ".jpg"
+      )
+    )
+
+    # Leer imagen original
+    imagen <- image_read(i)
+    
+    # Fondo blanco para imágenes con transparencia
+    imagen <- image_background(
+      imagen,
+      color = "white",
+      flatten = TRUE
+    )
+
+    # Reducir a un máximo de 1600 píxeles de ancho
+    imagen <- image_resize(imagen, "1600x1600>")
+
+    # Eliminar metadatos y comprimir
+    imagen <- image_strip(imagen)
+
+    image_write(
+      imagen,
+      path = destino,
+      format = "jpeg",
+      quality = 75
+    )
+
+    # Insertar versión reducida
+    cat(
+      "![](", destino, "){width=90%}\n\n",
+      sep = ""
+    )
+  }
+
+} else {
+
+  # Para HTML, GitHub Markdown, etc.
+  # Mantener las imágenes originales
+  for (i in imgs) {
+    cat("![](", i, ")\n\n", sep = "")
+  }
+
+}
 ```
 
 <!-- Ejecutar este comando después de generar el PDF -->
